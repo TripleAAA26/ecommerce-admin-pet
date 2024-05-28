@@ -16,7 +16,6 @@ import { Separator } from '@/components/ui/separator'
 import { Input } from '@/components/ui/input'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import AlertModal from '@/components/modals/alert-modal'
-import useOrigin from '@/hooks/use-origin'
 import ImageUpload from '@/components/ui/image-upload'
 
 const formSchema = z.object({
@@ -33,7 +32,7 @@ interface BillboardFormProps {
 export default function BillboardForm({ initialData }: BillboardFormProps) {
     const params = useParams()
     const router = useRouter()
-    const origin = useOrigin()
+
 
     const [ open, setOpen ] = useState(false)
     const [ loading, setLoading ] = useState(false)
@@ -59,8 +58,8 @@ export default function BillboardForm({ initialData }: BillboardFormProps) {
             } else {
                 await axios.post(`/api/${params.storeId}/billboards`, data)
             }
-            router.refresh()
             router.push(`/${params.storeId}/billboards`)
+            router.refresh()
             toast.success(toastMessage)
 
         } catch (error) {
@@ -74,8 +73,8 @@ export default function BillboardForm({ initialData }: BillboardFormProps) {
         try {
             setLoading(true)
             await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`)
+            router.push(`/${params.storeId}/billboards`)
             router.refresh()
-            router.push('/')
             toast.success('Billboard deleted.')
 
         } catch (error) {
@@ -162,8 +161,6 @@ export default function BillboardForm({ initialData }: BillboardFormProps) {
                     </Button>
                 </form>
             </Form>
-            <Separator />
-
         </>
     )
 }

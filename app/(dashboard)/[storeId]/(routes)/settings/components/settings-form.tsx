@@ -60,8 +60,8 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
         try {
             setLoading(true)
             await axios.delete(`/api/stores/${params.storeId}`)
+            router.push('/')
             router.refresh()
-            //router.push('/')
             toast.success('Store deleted.')
 
         } catch (error) {
