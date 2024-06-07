@@ -34,7 +34,7 @@ export default function ImageUpload({ disabled, onChange, onRemove, value }: Ima
     const ikUploadRefTest = useRef(null)
 
     function onSuccess(res: any) {
-        onChange(res.thumbnailUrl)
+        onChange(res.url)
     }
 
     // Prevent from hydration error
